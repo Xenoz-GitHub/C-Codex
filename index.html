@@ -21,13 +21,17 @@
   --muted:#94a3b8;
   --border:#1e293b;
 }
-html{scroll-behavior:smooth;font-size:16px;overflow-x:hidden;width:100%}
+html{scroll-behavior:smooth;font-size:16px;overflow-x:hidden;width:100%;max-width:100vw}
 body{
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,sans-serif;
   background:var(--bg);color:var(--text);line-height:1.6;
-  min-height:100vh;overflow-x:hidden;width:100%;max-width:100vw;
+  margin:0;padding:0;overflow-x:hidden;width:100%;max-width:100vw;
 }
-body::before{
+.page{
+  overflow-x:hidden;width:100%;max-width:100vw;min-height:100vh;
+  position:relative;
+}
+.page::before{
   content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
   background-image:
     linear-gradient(rgba(0,212,255,.03) 1px,transparent 1px),
@@ -72,6 +76,7 @@ nav a:hover{color:var(--cyan);background:rgba(0,212,255,.08)}
 main{
   position:relative;z-index:1;max-width:1300px;margin:0 auto;
   padding:clamp(1rem,3vw,2rem) clamp(.6rem,3vw,1.5rem) clamp(2rem,5vw,4rem);
+  overflow-x:hidden;
 }
 .hero{
   text-align:center;
@@ -206,6 +211,8 @@ footer a:hover{color:var(--magenta)}
 </style>
 </head>
 <body>
+
+<div class="page">
 
 <nav>
   <div class="logo">C++<span>Codex</span></div>
@@ -851,5 +858,6 @@ v.i = <span class="nm">42</span>;                       <span class="cm">// stor
 </footer>
 
 </main>
+</div>
 </body>
 </html>
