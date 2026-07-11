@@ -37,73 +37,85 @@ body::before{
 nav{
   position:sticky;top:0;z-index:100;
   background:rgba(10,14,23,.95);backdrop-filter:blur(10px);
-  border-bottom:1px solid var(--border);padding:.45rem .8rem;
+  border-bottom:1px solid var(--border);
+  padding:clamp(.3rem,.8vw,.5rem) clamp(.4rem,1.5vw,.8rem);
   display:flex;flex-wrap:nowrap;align-items:center;gap:0;
   overflow-x:auto;scrollbar-width:thin;
+  -webkit-overflow-scrolling:touch;
 }
-nav::-webkit-scrollbar{height:3px}
+nav::-webkit-scrollbar{height:2px}
 nav::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
 nav .logo{
-  font-size:1.1rem;font-weight:800;color:var(--cyan);margin-right:.6rem;
-  white-space:nowrap;letter-spacing:-.5px;flex-shrink:0;
+  font-size:clamp(.8rem,1.8vw,1.1rem);font-weight:800;color:var(--cyan);
+  margin-right:clamp(.3rem,.8vw,.6rem);white-space:nowrap;
+  letter-spacing:-.5px;flex-shrink:0;
 }
 nav .logo span{color:var(--magenta)}
 nav .nav-group{
-  display:flex;flex-wrap:nowrap;align-items:center;gap:.1rem;
+  display:flex;flex-wrap:nowrap;align-items:center;gap:clamp(0rem,.15vw,.1rem);
 }
 nav .nav-cat{
-  font-size:.55rem;font-weight:700;color:var(--comment);
+  font-size:clamp(.45rem,1vw,.55rem);font-weight:700;color:var(--comment);
   text-transform:uppercase;letter-spacing:.3px;
-  padding:0 .25rem;margin:0 .1rem 0 .2rem;
+  padding:0 .2rem;margin:0 .1rem;
   border-right:1px solid var(--border);flex-shrink:0;
 }
 nav a{
-  color:var(--muted);text-decoration:none;font-size:.68rem;
-  padding:.2rem .4rem;border-radius:3px;transition:.2s;
+  color:var(--muted);text-decoration:none;
+  font-size:clamp(.55rem,1.2vw,.68rem);
+  padding:clamp(.12rem,.3vw,.2rem) clamp(.2rem,.5vw,.4rem);
+  border-radius:3px;transition:.2s;
   white-space:nowrap;font-weight:500;flex-shrink:0;
 }
 nav a:hover{color:var(--cyan);background:rgba(0,212,255,.08)}
 main{
   position:relative;z-index:1;max-width:1300px;margin:0 auto;
-  padding:2rem 1.5rem 4rem;
+  padding:clamp(1rem,3vw,2rem) clamp(.6rem,3vw,1.5rem) clamp(2rem,5vw,4rem);
 }
 .hero{
-  text-align:center;padding:2.5rem 1rem 2rem;
-  border-bottom:1px solid var(--border);margin-bottom:2rem;
+  text-align:center;
+  padding:clamp(1.2rem,4vw,2.5rem) clamp(.3rem,2vw,1rem) clamp(1.2rem,3vw,2rem);
+  border-bottom:1px solid var(--border);
+  margin-bottom:clamp(1.2rem,3vw,2rem);
 }
 .hero h1{
-  font-size:clamp(2rem,5vw,3.5rem);font-weight:900;
+  font-size:clamp(1.5rem,6vw,3.5rem);font-weight:900;
   background:linear-gradient(135deg,var(--cyan),var(--magenta));
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;
   background-clip:text;letter-spacing:-1px;
 }
 .hero p{
-  color:var(--muted);font-size:clamp(.9rem,1.5vw,1.1rem);
-  margin-top:.6rem;max-width:600px;margin-left:auto;margin-right:auto;
+  color:var(--muted);
+  font-size:clamp(.78rem,2.2vw,1.1rem);
+  margin-top:.5rem;max-width:600px;margin-left:auto;margin-right:auto;
+  padding:0 .3rem;
 }
-.category{scroll-margin-top:5rem;margin-bottom:2rem}
+.category{scroll-margin-top:5rem;margin-bottom:clamp(1.2rem,3vw,2rem)}
 .cat-title{
-  font-size:1.05rem;font-weight:800;text-transform:uppercase;
-  letter-spacing:1.2px;margin-bottom:.8rem;padding-bottom:.5rem;
-  border-bottom:2px solid var(--border);display:flex;align-items:center;gap:.65rem;
+  font-size:clamp(.85rem,2vw,1.05rem);font-weight:800;text-transform:uppercase;
+  letter-spacing:1px;margin-bottom:clamp(.5rem,1.2vw,.8rem);
+  padding-bottom:clamp(.35rem,.8vw,.5rem);
+  border-bottom:2px solid var(--border);display:flex;align-items:center;
+  gap:clamp(.4rem,1vw,.65rem);flex-wrap:wrap;
 }
 .cat-title .cat-num{
-  font-size:.65rem;font-weight:700;color:var(--bg);
-  background:var(--cyan);padding:.1rem .5rem;border-radius:4px;
+  font-size:clamp(.55rem,1.2vw,.65rem);font-weight:700;color:var(--bg);
+  background:var(--cyan);padding:.1rem .4rem;border-radius:4px;
 }
 .cat-title .cat-sub{
-  font-size:.7rem;font-weight:400;color:var(--comment);
+  font-size:clamp(.6rem,1.2vw,.7rem);font-weight:400;color:var(--comment);
   text-transform:none;letter-spacing:0;
 }
 .grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(min(370px,100%),1fr));
-  gap:1rem;
+  grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr));
+  gap:clamp(.7rem,1.5vw,1rem);
 }
 .card{
   background:var(--card);
   border:1px solid var(--border);
-  border-radius:10px;padding:1.25rem;
+  border-radius:clamp(8px,1.2vw,10px);
+  padding:clamp(.9rem,2vw,1.25rem);
   transition:transform .25s,box-shadow .3s,border-color .3s;
 }
 .card:hover{
@@ -112,25 +124,31 @@ main{
   box-shadow:0 8px 30px rgba(0,212,255,.08);
 }
 .card h2{
-  font-size:1rem;font-weight:700;margin-bottom:.35rem;
-  display:flex;align-items:center;gap:.5rem;
+  font-size:clamp(.88rem,1.8vw,1rem);font-weight:700;
+  margin-bottom:clamp(.25rem,.6vw,.35rem);
+  display:flex;align-items:center;gap:clamp(.35rem,.8vw,.5rem);
+  flex-wrap:wrap;
 }
 .card h2 .badge{
-  font-size:.6rem;font-weight:600;
+  font-size:clamp(.5rem,1.1vw,.6rem);font-weight:600;
   background:rgba(0,212,255,.1);color:var(--cyan);
-  padding:.1rem .5rem;border-radius:20px;white-space:nowrap;
+  padding:.08rem .45rem;border-radius:20px;white-space:nowrap;
 }
 .card p{
-  font-size:.82rem;color:var(--muted);margin-bottom:.75rem;line-height:1.5;
+  font-size:clamp(.78rem,1.5vw,.82rem);color:var(--muted);
+  margin-bottom:clamp(.55rem,1.2vw,.75rem);line-height:1.5;
+  overflow-wrap:break-word;word-wrap:break-word;
 }
 pre{
   background:var(--code-bg);border-radius:8px;
-  padding:.75rem .9rem;overflow-x:auto;font-size:.8rem;
+  padding:clamp(.5rem,1.2vw,.75rem) clamp(.5rem,1.3vw,.9rem);
+  overflow-x:auto;font-size:clamp(.68rem,1.4vw,.8rem);
   line-height:1.5;border:1px solid var(--border);
   font-family:"Courier New",Courier,monospace;
-  position:relative;
+  position:relative;-webkit-overflow-scrolling:touch;
+  max-width:100%;
 }
-code{font-family:inherit}
+code{font-family:inherit;word-break:break-word}
 .kw{color:var(--cyan);font-weight:600}
 .ty{color:var(--purple)}
 .st{color:var(--green)}
@@ -140,28 +158,35 @@ code{font-family:inherit}
 .op{color:#f472b6}
 .mc{color:var(--magenta);font-weight:600}
 footer{
-  text-align:center;padding:2rem 1rem 1rem;
-  border-top:1px solid var(--border);margin-top:2.5rem;
+  text-align:center;
+  padding:clamp(1.2rem,3vw,2rem) clamp(.5rem,2vw,1rem) clamp(.8rem,2vw,1rem);
+  border-top:1px solid var(--border);
+  margin-top:clamp(1.5rem,4vw,2.5rem);
 }
-footer p{font-size:.78rem;color:var(--comment)}
+footer p{font-size:clamp(.7rem,1.4vw,.78rem);color:var(--comment)}
 footer a{color:var(--cyan);text-decoration:none}
 footer a:hover{color:var(--magenta)}
-@media(max-width:768px){
-  main{padding:1rem .8rem 2.5rem}
-  .hero{padding:1.5rem .5rem 1.5rem}
-  nav{padding:.35rem .6rem}
-  nav .logo{font-size:.9rem;margin-right:.4rem}
-  nav a{font-size:.6rem;padding:.15rem .3rem}
-  nav .nav-cat{font-size:.5rem}
-  .grid{grid-template-columns:1fr;gap:.9rem}
-  .card{padding:1.1rem}
-  pre{font-size:.74rem;padding:.55rem .7rem}
-  .cat-title{font-size:.9rem}
+
+@media(max-width:640px){
   .cat-title .cat-sub{display:none}
+  .grid{grid-template-columns:1fr}
+  nav .nav-cat{padding:0 .12rem;font-size:clamp(.4rem,.9vw,.5rem)}
+  nav a{padding:clamp(.1rem,.25vw,.15rem) clamp(.15rem,.35vw,.25rem)}
 }
-@media(max-width:480px){
-  nav .logo{font-size:.8rem}
-  nav a{font-size:.55rem;padding:.12rem .25rem}
+@media(max-width:400px){
+  nav .nav-cat{display:none}
+  nav .logo{font-size:.75rem;margin-right:.25rem}
+  nav a{font-size:.5rem;padding:.08rem .15rem}
+  .cat-title{font-size:.8rem}
+  .cat-title .cat-num{font-size:.5rem;padding:.08rem .3rem}
+}
+@media(max-width:360px){
+  nav a{font-size:.45rem;padding:.06rem .12rem}
+  .hero h1{font-size:1.3rem}
+  .hero p{font-size:.7rem}
+  .card h2{font-size:.8rem}
+  .card p{font-size:.72rem}
+  pre{font-size:.62rem;padding:.4rem .4rem}
 }
 </style>
 </head>
