@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>C++ Codex — Master C++ Syntax</title>
+<meta name="description" content="A comprehensive single-page HTML reference for learning C++ syntax — dark cyber theme, responsive, zero JS.">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0a0e17;
+  --card:#111827;
+  --code-bg:#1a1f2e;
+  --cyan:#00d4ff;
+  --magenta:#ff2d95;
+  --purple:#a78bfa;
+  --green:#22c55e;
+  --orange:#f97316;
+  --comment:#6b7280;
+  --text:#e2e8f0;
+  --muted:#94a3b8;
+  --border:#1e293b;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,sans-serif;
+  background:var(--bg);color:var(--text);line-height:1.6;
+  min-height:100vh;
+}
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:
+    linear-gradient(rgba(0,212,255,.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,212,255,.03) 1px,transparent 1px);
+  background-size:60px 60px,60px 60px;
+}
+nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(10,14,23,.95);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);padding:.45rem .8rem;
+  display:flex;flex-wrap:nowrap;align-items:center;gap:0;
+  overflow-x:auto;scrollbar-width:thin;
+}
+nav::-webkit-scrollbar{height:3px}
+nav::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+nav .logo{
+  font-size:1.1rem;font-weight:800;color:var(--cyan);margin-right:.6rem;
+  white-space:nowrap;letter-spacing:-.5px;flex-shrink:0;
+}
+nav .logo span{color:var(--magenta)}
+nav .nav-group{
+  display:flex;flex-wrap:nowrap;align-items:center;gap:.1rem;
+}
+nav .nav-cat{
+  font-size:.55rem;font-weight:700;color:var(--comment);
+  text-transform:uppercase;letter-spacing:.3px;
+  padding:0 .25rem;margin:0 .1rem 0 .2rem;
+  border-right:1px solid var(--border);flex-shrink:0;
+}
+nav a{
+  color:var(--muted);text-decoration:none;font-size:.68rem;
+  padding:.2rem .4rem;border-radius:3px;transition:.2s;
+  white-space:nowrap;font-weight:500;flex-shrink:0;
+}
+nav a:hover{color:var(--cyan);background:rgba(0,212,255,.08)}
+main{
+  position:relative;z-index:1;max-width:1300px;margin:0 auto;
+  padding:2rem 1.5rem 4rem;
+}
+.hero{
+  text-align:center;padding:2.5rem 1rem 2rem;
+  border-bottom:1px solid var(--border);margin-bottom:2rem;
+}
+.hero h1{
+  font-size:clamp(2rem,5vw,3.5rem);font-weight:900;
+  background:linear-gradient(135deg,var(--cyan),var(--magenta));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;letter-spacing:-1px;
+}
+.hero p{
+  color:var(--muted);font-size:clamp(.9rem,1.5vw,1.1rem);
+  margin-top:.6rem;max-width:600px;margin-left:auto;margin-right:auto;
+}
+.category{scroll-margin-top:5rem;margin-bottom:2rem}
+.cat-title{
+  font-size:1.05rem;font-weight:800;text-transform:uppercase;
+  letter-spacing:1.2px;margin-bottom:.8rem;padding-bottom:.5rem;
+  border-bottom:2px solid var(--border);display:flex;align-items:center;gap:.65rem;
+}
+.cat-title .cat-num{
+  font-size:.65rem;font-weight:700;color:var(--bg);
+  background:var(--cyan);padding:.1rem .5rem;border-radius:4px;
+}
+.cat-title .cat-sub{
+  font-size:.7rem;font-weight:400;color:var(--comment);
+  text-transform:none;letter-spacing:0;
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(min(370px,100%),1fr));
+  gap:1rem;
+}
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:10px;padding:1.25rem;
+  transition:transform .25s,box-shadow .3s,border-color .3s;
+}
+.card:hover{
+  transform:translateY(-3px);
+  border-color:rgba(0,212,255,.3);
+  box-shadow:0 8px 30px rgba(0,212,255,.08);
+}
+.card h2{
+  font-size:1rem;font-weight:700;margin-bottom:.35rem;
+  display:flex;align-items:center;gap:.5rem;
+}
+.card h2 .badge{
+  font-size:.6rem;font-weight:600;
+  background:rgba(0,212,255,.1);color:var(--cyan);
+  padding:.1rem .5rem;border-radius:20px;white-space:nowrap;
+}
+.card p{
+  font-size:.82rem;color:var(--muted);margin-bottom:.75rem;line-height:1.5;
+}
+pre{
+  background:var(--code-bg);border-radius:8px;
+  padding:.75rem .9rem;overflow-x:auto;font-size:.8rem;
+  line-height:1.5;border:1px solid var(--border);
+  font-family:"Courier New",Courier,monospace;
+  position:relative;
+}
+code{font-family:inherit}
+.kw{color:var(--cyan);font-weight:600}
+.ty{color:var(--purple)}
+.st{color:var(--green)}
+.cm{color:var(--comment);font-style:italic}
+.nm{color:var(--orange)}
+.fn{color:#fbbf24}
+.op{color:#f472b6}
+.mc{color:var(--magenta);font-weight:600}
+footer{
+  text-align:center;padding:2rem 1rem 1rem;
+  border-top:1px solid var(--border);margin-top:2.5rem;
+}
+footer p{font-size:.78rem;color:var(--comment)}
+footer a{color:var(--cyan);text-decoration:none}
+footer a:hover{color:var(--magenta)}
+@media(max-width:768px){
+  main{padding:1rem .8rem 2.5rem}
+  .hero{padding:1.5rem .5rem 1.5rem}
+  nav{padding:.35rem .6rem}
+  nav .logo{font-size:.9rem;margin-right:.4rem}
+  nav a{font-size:.6rem;padding:.15rem .3rem}
+  nav .nav-cat{font-size:.5rem}
+  .grid{grid-template-columns:1fr;gap:.9rem}
+  .card{padding:1.1rem}
+  pre{font-size:.74rem;padding:.55rem .7rem}
+  .cat-title{font-size:.9rem}
+  .cat-title .cat-sub{display:none}
+}
+@media(max-width:480px){
+  nav .logo{font-size:.8rem}
+  nav a{font-size:.55rem;padding:.12rem .25rem}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">C++<span>Codex</span></div>
+  <div class="nav-group">
+    <span class="nav-cat">Basics</span>
+    <a href="#comments">//</a>
+    <a href="#variables">int</a>
+    <a href="#io">cin</a>
+    <a href="#operators">Ops</a>
+    <a href="#enums">Enum</a>
+    <a href="#casting">Cast</a>
+    <a href="#namespaces">NS</a>
+    <a href="#typealiases">Alias</a>
+    <span class="nav-cat">Flow</span>
+    <a href="#control">if</a>
+    <a href="#loops">Loop</a>
+    <a href="#recursion">Recur</a>
+    <span class="nav-cat">Data</span>
+    <a href="#arrays">Arr</a>
+    <a href="#pointers">Ptr</a>
+    <a href="#memory">Alloc</a>
+    <span class="nav-cat">Func</span>
+    <a href="#functions">Fn</a>
+    <a href="#lambdas">λ</a>
+    <a href="#fnptrs">Fn*</a>
+    <a href="#inline">Inln</a>
+    <span class="nav-cat">OOP</span>
+    <a href="#classes">Cls</a>
+    <a href="#inheritance">Inh</a>
+    <a href="#polymorphism">Poly</a>
+    <a href="#copycontrol">Copy</a>
+    <a href="#opoverload">OpOv</a>
+    <a href="#static">Stat</a>
+    <a href="#friend">Frnd</a>
+    <span class="nav-cat">Modern</span>
+    <a href="#templates">Tmp</a>
+    <a href="#exceptions">Exc</a>
+    <a href="#stl">STL</a>
+    <a href="#move">Move</a>
+    <a href="#iterators">Iter</a>
+    <a href="#optional">Opt</a>
+    <a href="#bindings">Bind</a>
+    <span class="nav-cat">Sys</span>
+    <a href="#fileio">File</a>
+    <a href="#preprocessor">#</a>
+    <a href="#const">Const</a>
+    <a href="#union">Union</a>
+  </div>
+</nav>
+
+<main>
+
+<section class="hero">
+  <h1>C++ Codex</h1>
+  <p>Every C++ syntax construct, distilled into concise examples.<br>Master the language — one snippet at a time.</p>
+</section>
+
+<!-- ─── CATEGORY 1: FUNDAMENTALS ─── -->
+<div class="category">
+  <h2 class="cat-title"><span class="cat-num">01</span> Fundamentals <span class="cat-sub">— core syntax &amp; building blocks</span></h2>
+  <div class="grid">
+
+    <article class="card" id="comments">
+      <h2>Comments <span class="badge">//</span></h2>
+      <p>Single-line (<span class="kw">//</span>) and multi-line (<span class="cm">/* */</span>) comments. Entirely ignored by the compiler — used to document intent.</p>
+      <pre><code><span class="cm">// This is a single-line comment</span>
+
+<span class="cm">/* This is a
+   multi-line comment */</span></code></pre>
+    </article>
+
+    <article class="card" id="variables">
+      <h2>Variables &amp; Data Types <span class="badge">types</span></h2>
+      <p>Fundamental types: <span class="ty">int</span>, <span class="ty">double</span>, <span class="ty">char</span>, <span class="ty">bool</span>, <span class="ty">unsigned</span>. Use <span class="kw">auto</span> for type deduction and <span class="kw">const</span> for immutables.</p>
+      <pre><code><span class="ty">int</span> age = <span class="nm">25</span>;
+<span class="ty">double</span> pi = <span class="nm">3.14159</span>;
+<span class="ty">char</span> grade = <span class="st">'A'</span>;
+<span class="ty">bool</span> ready = <span class="kw">true</span>;
+<span class="kw">auto</span> result = <span class="nm">42</span>;          <span class="cm">// deduced as int</span>
+<span class="kw">const</span> <span class="ty">int</span> MAX = <span class="nm">100</span>;       <span class="cm">// read-only</span>
+<span class="ty">unsigned</span> <span class="ty">int</span> n = <span class="nm">255</span>u;
+<span class="ty">long</span> <span class="ty">long</span> big = <span class="nm">1e15</span>;</code></pre>
+    </article>
+
+    <article class="card" id="io">
+      <h2>Input / Output <span class="badge">cin/cout</span></h2>
+      <p>Console I/O via the &lt;iostream&gt; streams: <span class="fn">cout</span> (output), <span class="fn">cin</span> (input), <span class="fn">cerr</span> (error), <span class="fn">clog</span> (log).</p>
+      <pre><code><span class="fn">cout</span> &lt;&lt; <span class="st">"Hello, "</span> &lt;&lt; name &lt;&lt; <span class="st">"!\n"</span>;
+<span class="fn">cin</span> &gt;&gt; name;
+<span class="fn">cerr</span> &lt;&lt; <span class="st">"Error occurred!"</span> &lt;&lt; <span class="fn">endl</span>;
+<span class="fn">clog</span> &lt;&lt; <span class="st">"Log: "</span> &lt;&lt; value &lt;&lt; <span class="fn">endl</span>;</code></pre>
+    </article>
+
+    <article class="card" id="operators">
+      <h2>Operators <span class="badge">+ - * /</span></h2>
+      <p>Arithmetic, relational, logical, bitwise, ternary (<span class="kw">?:</span>), and compound assignment operators.</p>
+      <pre><code><span class="kw">int</span> sum = a + b;         <span class="cm">// arithmetic: + - * / %</span>
+<span class="kw">bool</span> eq = (a == b);      <span class="cm">// relational: == != &lt; &gt; &lt;= &gt;=</span>
+<span class="kw">bool</span> ok = a &amp;&amp; b || !c;  <span class="cm">// logical: &amp;&amp; || !</span>
+<span class="kw">int</span> bits = a &amp; b | c;    <span class="cm">// bitwise: &amp; | ^ ~ &lt;&lt; &gt;&gt;</span>
+<span class="kw">int</span> mx = (a &gt; b) ? a : b; <span class="cm">// ternary</span>
+
+a += <span class="nm">5</span>;  a -= <span class="nm">2</span>;            <span class="cm">// compound assignment</span></code></pre>
+    </article>
+
+    <article class="card" id="enums">
+      <h2>Enums &amp; Structs <span class="badge">enum/struct</span></h2>
+      <p><span class="kw">enum</span> — named integer constants. <span class="kw">enum class</span> — scoped, type-safe (C++11). <span class="kw">struct</span> — grouped data members (default public).</p>
+      <pre><code><span class="kw">enum</span> Color { Red, Green, Blue };
+<span class="kw">enum class</span> Status { Ok, Error };
+Status s = Status::Ok;          <span class="cm">// scoped access</span>
+
+<span class="kw">struct</span> Point {
+    <span class="ty">double</span> x, y;
+};
+Point p = {<span class="nm">3.0</span>, <span class="nm">4.0</span>};</code></pre>
+    </article>
+
+    <article class="card" id="casting">
+      <h2>Type Casting <span class="badge">cast</span></h2>
+      <p>Four C++ casts: <span class="fn">static_cast</span> (safe conversions), <span class="fn">dynamic_cast</span> (polymorphic downcast), <span class="fn">const_cast</span> (remove const), <span class="fn">reinterpret_cast</span> (reinterpret bits).</p>
+      <pre><code><span class="ty">double</span> d = <span class="fn">static_cast</span>&lt;<span class="ty">double</span>&gt;(a) / b;
+
+Base* b = <span class="kw">dynamic_cast</span>&lt;Base*&gt;(ptr);
+<span class="kw">if</span> (b) { }                 <span class="cm">// null if cast fails</span>
+
+<span class="fn">const_cast</span>&lt;<span class="ty">char</span>*&gt;(str);      <span class="cm">// remove const</span>
+<span class="fn">reinterpret_cast</span>&lt;<span class="ty">int</span>*&gt;(addr); <span class="cm">// bit reinterpretation</span></code></pre>
+    </article>
+
+    <article class="card" id="namespaces">
+      <h2>Namespaces <span class="badge">namespace</span></h2>
+      <p>Group identifiers to avoid name collisions. Can be nested, aliased, or opened with <span class="kw">using</span>.</p>
+      <pre><code><span class="kw">namespace</span> Engine {
+    <span class="kw">namespace</span> Math {
+        <span class="ty">int</span> <span class="fn">clamp</span>(<span class="ty">int</span> v, <span class="ty">int</span> lo, <span class="ty">int</span> hi);
+    }
+}
+<span class="kw">using</span> Engine::Math::<span class="fn">clamp</span>;
+
+<span class="kw">namespace</span> EMath = Engine::Math;     <span class="cm">// alias</span>
+<span class="kw">using namespace</span> <span class="fn">std</span>;               <span class="cm">// brings all std names</span></code></pre>
+    </article>
+
+    <article class="card" id="typealiases">
+      <h2>Type Aliases <span class="badge">typedef/using</span></h2>
+      <p><span class="kw">typedef</span> and <span class="kw">using</span> create synonyms for existing types. <span class="kw">using</span> is preferred (works with templates).</p>
+      <pre><code><span class="kw">typedef</span> <span class="ty">unsigned</span> <span class="ty">long</span> ulong;
+<span class="kw">using</span> ulong = <span class="ty">unsigned</span> <span class="ty">long</span>;    <span class="cm">// same, but clearer</span>
+
+<span class="kw">template</span>&lt;<span class="kw">typename</span> T&gt;
+<span class="kw">using</span> Vec = <span class="fn">std::vector</span>&lt;T&gt;;    <span class="cm">// alias template</span>
+Vec&lt;<span class="ty">int</span>&gt; v;</code></pre>
+    </article>
+
+  </div>
+</div>
+
+<!-- ─── CATEGORY 2: CONTROL FLOW ─── -->
+<div class="category">
+  <h2 class="cat-title"><span class="cat-num">02</span> Control Flow <span class="cat-sub">— branching, iteration &amp; recursion</span></h2>
+  <div class="grid">
+
+    <article class="card" id="control">
+      <h2>Conditionals <span class="badge">if/switch</span></h2>
+      <p><span class="kw">if</span>/<span class="kw">else</span> for boolean branching. <span class="kw">switch</span>/<span class="kw">case</span> for multi-way dispatch on integral/enum types.</p>
+      <pre><code><span class="kw">if</span> (x &gt; <span class="nm">0</span>) {
+    <span class="cm">// positive</span>
+} <span class="kw">else</span> <span class="kw">if</span> (x == <span class="nm">0</span>) {
+    <span class="cm">// zero</span>
+} <span class="kw">else</span> {
+    <span class="cm">// negative</span>
+}
+
+<span class="kw">switch</span> (grade) {                <span class="cm">// integral/enum only</span>
+    <span class="kw">case</span> <span class="st">'A'</span>: <span class="kw">break</span>;
+    <span class="kw">case</span> <span class="st">'B'</span>: <span class="kw">break</span>;
+    <span class="kw">default</span>:  <span class="kw">break</span>;
+}</code></pre>
+    </article>
+
+    <article class="card" id="loops">
+      <h2>Loops <span class="badge">for/while</span></h2>
+      <p>Four loop constructs: <span class="kw">for</span>, <span class="kw">while</span>, <span class="kw">do-while</span>, and range-based <span class="kw">for</span> (C++11) for iterating containers.</p>
+      <pre><code><span class="kw">for</span> (<span class="ty">int</span> i = <span class="nm">0</span>; i &lt; n; ++i) { }
+<span class="kw">while</span> (condition) { }
+<span class="kw">do</span> { } <span class="kw">while</span> (condition);
+
+<span class="kw">for</span> (<span class="kw">const</span> <span class="kw">auto</span>&amp; x : vec) { }   <span class="cm">// range-based</span></code></pre>
+    </article>
+
+    <article class="card" id="recursion">
+      <h2>Recursion <span class="badge">recurse</span></h2>
+      <p>A function calling itself. Every recursive call must move toward a <span class="kw">base case</span> to avoid infinite recursion (stack overflow).</p>
+      <pre><code><span class="ty">int</span> <span class="fn">factorial</span>(<span class="ty">int</span> n) {
+    <span class="kw">if</span> (n &lt;= <span class="nm">1</span>) <span class="kw">return</span> <span class="nm">1</span>;     <span class="cm">// base case</span>
+    <span class="kw">return</span> n * <span class="fn">factorial</span>(n - <span class="nm">1</span>); <span class="cm">// recursive call</span>
+}
+
+<span class="cm">// Fibonacci</span>
+<span class="ty">int</span> <span class="fn">fib</span>(<span class="ty">int</span> n) {
+    <span class="kw">if</span> (n &lt;= <span class="nm">1</span>) <span class="kw">return</span> n;
+    <span class="kw">return</span> <span class="fn">fib</span>(n-<span class="nm">1</span>) + <span class="fn">fib</span>(n-<span class="nm">2</span>);
+}</code></pre>
+    </article>
+
+  </div>
+</div>
+
+<!-- ─── CATEGORY 3: DATA & MEMORY ─── -->
+<div class="category">
+  <h2 class="cat-title"><span class="cat-num">03</span> Data &amp; Memory <span class="cat-sub">— storage, pointers, allocation</span></h2>
+  <div class="grid">
+
+    <article class="card" id="arrays">
+      <h2>Arrays &amp; Strings <span class="badge">[]</span></h2>
+      <p>Fixed-size C-style arrays and the dynamic <span class="fn">std::string</span> class. Strings support concatenation, querying, and iteration.</p>
+      <pre><code><span class="ty">int</span> arr[<span class="nm">5</span>] = {<span class="nm">1</span>,<span class="nm">2</span>,<span class="nm">3</span>};       <span class="cm">// rest → 0</span>
+arr[<span class="nm">0</span>] = <span class="nm">10</span>;
+<span class="ty">int</span> len = <span class="kw">sizeof</span>(arr) / <span class="kw">sizeof</span>(arr[<span class="nm">0</span>]);
+
+<span class="ty">char</span> msg[] = <span class="st">"hello"</span>;          <span class="cm">// C-string</span>
+
+<span class="fn">std::string</span> s = <span class="st">"C++"</span>;
+s.size();  s.empty();
+s += <span class="st">"17"</span>;                     <span class="cm">// concatenation</span></code></pre>
+    </article>
+
+    <article class="card" id="pointers">
+      <h2>Pointers &amp; References <span class="badge">* &amp;</span></h2>
+      <p>Pointers hold memory addresses. References are aliases — must be initialised and cannot be reassigned. Use <span class="kw">nullptr</span> for null pointers.</p>
+      <pre><code><span class="ty">int</span> x = <span class="nm">42</span>;
+<span class="ty">int</span>* p = &amp;x;           <span class="cm">// pointer: stores address</span>
+<span class="fn">cout</span> &lt;&lt; *p;            <span class="cm">// dereference → 42</span>
+
+<span class="ty">int</span>&amp; ref = x;          <span class="cm">// reference: alias for x</span>
+ref = <span class="nm">99</span>;               <span class="cm">// changes x to 99</span>
+
+p = <span class="kw">nullptr</span>;            <span class="cm">// safe null pointer</span>
+<span class="kw">if</span> (p) { }             <span class="cm">// false when p is null</span></code></pre>
+    </article>
+
+    <article class="card" id="memory">
+      <h2>Dynamic Memory <span class="badge">new/delete</span></h2>
+      <p>Heap allocation with <span class="kw">new</span>/<span class="kw">delete</span>. Prefer smart pointers (<span class="fn">unique_ptr</span>, <span class="fn">shared_ptr</span>) to avoid leaks.</p>
+      <pre><code><span class="ty">int</span>* p  = <span class="kw">new</span> <span class="ty">int</span>(<span class="nm">42</span>);    <span class="cm">// single allocation</span>
+<span class="kw">delete</span> p;
+
+<span class="ty">int</span>* ar = <span class="kw">new</span> <span class="ty">int</span>[<span class="nm">10</span>];    <span class="cm">// array allocation</span>
+<span class="kw">delete</span>[] ar;
+
+<span class="cm">// Smart pointers (C++11, &lt;memory&gt;)</span>
+<span class="kw">auto</span> u = <span class="fn">std::make_unique</span>&lt;<span class="ty">int</span>&gt;(<span class="nm">5</span>);
+<span class="kw">auto</span> s = <span class="fn">std::make_shared</span>&lt;<span class="ty">int</span>&gt;(<span class="nm">10</span>);</code></pre>
+    </article>
+
+  </div>
+</div>
+
+<!-- ─── CATEGORY 4: FUNCTIONS ─── -->
+<div class="category">
+  <h2 class="cat-title"><span class="cat-num">04</span> Functions <span class="cat-sub">— reusable logic, lambdas, callbacks</span></h2>
+  <div class="grid">
+
+    <article class="card" id="functions">
+      <h2>Functions <span class="badge">()</span></h2>
+      <p>Declaration, definition, default arguments, overloading, <span class="kw">void</span> returns, and pass-by-reference vs pass-by-value.</p>
+      <pre><code><span class="ty">int</span> <span class="fn">add</span>(<span class="ty">int</span> a, <span class="ty">int</span> b) {
+    <span class="kw">return</span> a + b;
+}
+<span class="kw">void</span> <span class="fn">log</span>(<span class="kw">const</span> <span class="fn">std::string</span>&amp; msg, <span class="cm">// pass by ref</span>
+           <span class="ty">int</span> level = <span class="nm">0</span>) { }      <span class="cm">// default param</span>
+<span class="ty">double</span> <span class="fn">add</span>(<span class="ty">double</span> a, <span class="ty">double</span> b);  <span class="cm">// overload</span></code></pre>
+    </article>
+
+    <article class="card" id="lambdas">
+      <h2>Lambda Expressions <span class="badge">[]()</span></h2>
+      <p>Inline anonymous functions (C++11). Capture variables by value <span class="kw">[=]</span>, by reference <span class="kw">[&amp;]</span>, or selectively <span class="kw">[x, &amp;y]</span>.</p>
+      <pre><code><span class="kw">auto</span> square = [](<span class="ty">int</span> x) { <span class="kw">return</span> x * x; };
+<span class="fn">cout</span> &lt;&lt; square(<span class="nm">5</span>);               <span class="cm">// 25</span>
+
+<span class="ty">int</span> offset = <span class="nm">10</span>;
+<span class="kw">auto</span> add_offset = [offset](<span class="ty">int</span> x) {
+    <span class="kw">return</span> x + offset;
+};
+
+<span class="cm">// Mutable lambda</span>
+<span class="kw">auto</span> counter = [n = <span class="nm">0</span>]() <span class="kw">mutable</span> { <span class="kw">return</span> n++; };</code></pre>
+    </article>
+
+    <article class="card" id="fnptrs">
+      <h2>Function Pointers <span class="badge">fnptr</span></h2>
+      <p>Store and pass functions as values. Use <span class="kw">auto</span> or explicit signature syntax. <span class="fn">std::function</span> generalises for lambdas.</p>
+      <pre><code><span class="ty">int</span> (*op)(<span class="ty">int</span>, <span class="ty">int</span>) = &amp;<span class="fn">add</span>;  <span class="cm">// function pointer</span>
+op(<span class="nm">3</span>, <span class="nm">4</span>);                         <span class="cm">// call via pointer</span>
+
+<span class="kw">using</span> Fn = <span class="ty">int</span>(*)(<span class="ty">int</span>, <span class="ty">int</span>);
+Fn fn = &amp;<span class="fn">multiply</span>;
+
+<span class="cm">// std::function (any callable)</span>
+<span class="fn">std::function</span>&lt;<span class="ty">int</span>(<span class="ty">int</span>)&gt; f = square;</code></pre>
+    </article>
+
+    <article class="card" id="inline">
+      <h2>Inline &amp; constexpr <span class="badge">inline/constexpr</span></h2>
+      <p><span class="kw">inline</span> hints the compiler to avoid function-call overhead. <span class="kw">constexpr</span> evaluates at compile-time where possible.</p>
+      <pre><code><span class="kw">inline</span> <span class="ty">int</span> <span class="fn">square</span>(<span class="ty">int</span> x) {
+    <span class="kw">return</span> x * x;           <span class="cm">// may inline at call site</span>
+}
+
+<span class="kw">constexpr</span> <span class="ty">int</span> <span class="fn">fact</span>(<span class="ty">int</span> n) {
+    <span class="kw">return</span> (n &lt;= <span class="nm">1</span>) ? <span class="nm">1</span> : n * <span class="fn">fact</span>(n - <span class="nm">1</span>);
+}
+<span class="kw">constexpr</span> <span class="ty">int</span> VAL = <span class="fn">fact</span>(<span class="nm">5</span>);  <span class="cm">// computed at compile-time</span></code></pre>
+    </article>
+
+  </div>
+</div>
+
+<!-- ─── CATEGORY 5: OBJECT-ORIENTED PROGRAMMING ─── -->
+<div class="category">
+  <h2 class="cat-title"><span class="cat-num">05</span> Object-Oriented Programming <span class="cat-sub">— classes, inheritance, polymorphism</span></h2>
+  <div class="grid">
+
+    <article class="card" id="classes">
+      <h2>Classes <span class="badge">class</span></h2>
+      <p>Encapsulation via access specifiers (<span class="kw">private</span>, <span class="kw">public</span>), constructors (with initialiser lists), destructors, and the <span class="kw">this</span> pointer.</p>
+      <pre><code><span class="kw">class</span> <span class="ty">Player</span> {
+<span class="kw">private</span>:
+    <span class="ty">int</span> hp;
+<span class="kw">public</span>:
+    <span class="fn">Player</span>(<span class="ty">int</span> h) : hp(h) { }     <span class="cm">// init list</span>
+    ~<span class="fn">Player</span>() { }                  <span class="cm">// destructor</span>
+    <span class="ty">void</span> <span class="fn">takeDamage</span>(<span class="ty">int</span> d) {
+        hp -= d;
+        <span class="kw">this</span>-&gt;hp = hp;            <span class="cm">// explicit this</span>
+    }
+};  <span class="cm">// semicolon required</span></code></pre>
+    </article>
+
+    <article class="card" id="inheritance">
+      <h2>Inheritance <span class="badge">:</span></h2>
+      <p>Derive from base classes using <span class="kw">:</span>. Access modes: <span class="kw">public</span> (IS-A), <span class="kw">protected</span>, <span class="kw">private</span>. Use <span class="kw">virtual</span> for diamond-problem safety.</p>
+      <pre><code><span class="kw">class</span> <span class="ty">Entity</span> {
+<span class="kw">public</span>:
+    <span class="ty">int</span> id;
+    <span class="kw">virtual</span> <span class="kw">void</span> <span class="fn">update</span>() { }
+};
+
+<span class="kw">class</span> <span class="ty">Player</span> : <span class="kw">public</span> <span class="ty">Entity</span> {
+    <span class="cm">// inherits id, can override update()</span>
+};
+
+<span class="cm">// Virtual inheritance prevents diamond duplicates</span>
+<span class="kw">class</span> <span class="ty">D</span> : <span class="kw">public virtual</span> <span class="ty">B1</span>,
+          <span class="kw">private</span> <span class="ty">B2</span> { };</code></pre>
+    </article>
+
+    <article class="card" id="polymorphism">
+      <h2>Polymorphism <span class="badge">virtual</span></h2>
+      <p>Runtime dispatch via <span class="kw">virtual</span> functions. Pure virtual (<span class="op">= 0</span>) makes a class abstract — cannot instantiate directly.</p>
+      <pre><code><span class="kw">class</span> <span class="ty">Shape</span> {
+<span class="kw">public</span>:
+    <span class="kw">virtual</span> <span class="ty">double</span> <span class="fn">area</span>() <span class="kw">const</span> = <span class="nm">0</span>; <span class="cm">// pure virtual</span>
+    <span class="kw">virtual</span> ~<span class="fn">Shape</span>() = <span class="kw">default</span>;
+};
+<span class="kw">class</span> <span class="ty">Circle</span> : <span class="kw">public</span> <span class="ty">Shape</span> {
+    <span class="ty">double</span> <span class="fn">area</span>() <span class="kw">override</span> {
+        <span class="kw">return</span> <span class="nm">3.14159</span> * r * r;
+    }
+};
+<span class="fn">Shape</span>* s = <span class="kw">new</span> <span class="fn">Circle</span>(<span class="nm">5</span>);
+s-&gt;<span class="fn">area</span>();                <span class="cm">// dynamic dispatch</span></code></pre>
+    </article>
+
+    <article class="card" id="copycontrol">
+      <h2>Copy Control <span class="badge">rule of 5</span></h2>
+      <p>If a class manages resources, define: destructor, copy ctor, copy assignment, move ctor, move assignment (Rule of Five).</p>
+      <pre><code><span class="kw">class</span> <span class="ty">Buffer</span> {
+    <span class="ty">int</span>* data;
+<span class="kw">public</span>:
+    <span class="fn">Buffer</span>(<span class="ty">size_t</span> sz) : data(<span class="kw">new</span> <span class="ty">int</span>[sz]) { }
+    ~<span class="fn">Buffer</span>() { <span class="kw">delete</span>[] data; }          <span class="cm">// destructor</span>
+    <span class="fn">Buffer</span>(<span class="kw">const</span> <span class="fn">Buffer</span>&amp; o)               <span class="cm">// copy ctor</span>
+        : data(<span class="kw">new</span> <span class="ty">int</span>[<span class="fn">size</span>(o)]) { }
+    <span class="fn">Buffer</span>&amp; <span class="kw">operator</span>=(<span class="kw">const</span> <span class="fn">Buffer</span>&amp;) { }  <span class="cm">// copy assign</span>
+    <span class="fn">Buffer</span>(<span class="fn">Buffer</span>&amp;&amp;) <span class="kw">noexcept</span> { }        <span class="cm">// move ctor</span>
+    <span class="fn">Buffer</span>&amp; <span class="kw">operator</span>=(<span class="fn">Buffer</span>&amp;&amp;) <span class="kw">noexcept</span> { } <span class="cm">// move assign</span>
+};</code></pre>
+    </article>
+
+    <article class="card" id="opoverload">
+      <h2>Operator Overloading <span class="badge">operator</span></h2>
+      <p>Define custom behaviour for operators (<span class="op">+</span>, <span class="op">==</span>, <span class="op">&lt;&lt;</span>, <span class="op">[]</span>, etc.) on user-defined types.</p>
+      <pre><code><span class="kw">struct</span> <span class="ty">Vec2</span> {
+    <span class="ty">float</span> x, y;
+    <span class="fn">Vec2</span> <span class="kw">operator</span>+(<span class="kw">const</span> <span class="fn">Vec2</span>&amp; o) <span class="kw">const</span> {
+        <span class="kw">return</span> {x + o.x, y + o.y};
+    }
+    <span class="ty">bool</span> <span class="kw">operator</span>==(<span class="kw">const</span> <span class="fn">Vec2</span>&amp; o) <span class="kw">const</span> {
+        <span class="kw">return</span> x == o.x &amp;&amp; y == o.y;
+    }
+};
+<span class="fn">Vec2</span> a = {<span class="nm">1</span>,<span class="nm">2</span>}, b = {<span class="nm">3</span>,<span class="nm">4</span>};
+<span class="kw">auto</span> c = a + b;               <span class="cm">// calls operator+</span></code></pre>
+    </article>
+
+    <article class="card" id="static">
+      <h2>Static Members <span class="badge">static</span></h2>
+      <p><span class="kw">static</span> members belong to the class, not instances. <span class="kw">static</span> functions can only access static data. <span class="kw">static</span> local variables persist across calls.</p>
+      <pre><code><span class="kw">class</span> <span class="ty">App</span> {
+<span class="kw">public</span>:
+    <span class="kw">static</span> <span class="ty">int</span> count;               <span class="cm">// declaration</span>
+    <span class="kw">static</span> <span class="kw">void</span> <span class="fn">showCount</span>() {
+        <span class="fn">cout</span> &lt;&lt; count;              <span class="cm">// static fn</span>
+    }
+};
+<span class="ty">int</span> App::count = <span class="nm">0</span>;                <span class="cm">// definition</span>
+
+<span class="kw">void</span> <span class="fn">counter</span>() {
+    <span class="kw">static</span> <span class="ty">int</span> n = <span class="nm">0</span>;             <span class="cm">// persists</span>
+    ++n;
+}</code></pre>
+    </article>
+
+    <article class="card" id="friend">
+      <h2>Friend <span class="badge">friend</span></h2>
+      <p>A <span class="kw">friend</span> function or class can access private/protected members of the class that declares it as a friend.</p>
+      <pre><code><span class="kw">class</span> <span class="ty">Account</span> {
+    <span class="ty">int</span> balance;
+<span class="kw">public</span>:
+    <span class="fn">Account</span>(<span class="ty">int</span> b) : balance(b) { }
+    <span class="kw">friend</span> <span class="ty">bool</span> <span class="fn">isOverdrawn</span>(<span class="kw">const</span> <span class="fn">Account</span>&amp; a);
+    <span class="kw">friend class</span> <span class="ty">Auditor</span>;         <span class="cm">// whole class</span>
+};
+
+<span class="ty">bool</span> <span class="fn">isOverdrawn</span>(<span class="kw">const</span> <span class="fn">Account</span>&amp; a) {
+    <span class="kw">return</span> a.balance &lt; <span class="nm">0</span>;         <span class="cm">// access private member</span>
+}</code></pre>
+    </article>
+
+  </div>
+</div>
+
+<!-- ─── CATEGORY 6: MODERN C++ ─── -->
+<div class="category">
+  <h2 class="cat-title"><span class="cat-num">06</span> Modern C++ <span class="cat-sub">— generics, safety, algorithms, utilities</span></h2>
+  <div class="grid">
+
+    <article class="card" id="templates">
+      <h2>Templates <span class="badge">&lt;T&gt;</span></h2>
+      <p>Generic code with type parameters. Supports function templates, class templates, full/partial specialisation, and variadic templates (C++11).</p>
+      <pre><code><span class="kw">template</span>&lt;<span class="kw">typename</span> T&gt;
+T <span class="fn">max</span>(T a, T b) { <span class="kw">return</span> (a &gt; b) ? a : b; }
+
+<span class="kw">template</span>&lt;<span class="kw">typename</span> T, <span class="ty">int</span> N&gt;
+<span class="kw">class</span> <span class="ty">Array</span> { T data[N]; };
+
+<span class="cm">// Specialisation</span>
+<span class="kw">template</span>&lt;&gt; <span class="kw">class</span> <span class="ty">Array</span>&lt;<span class="ty">bool</span>,<span class="nm">8</span>&gt; { };
+
+<span class="cm">// Variadic (C++11)</span>
+<span class="kw">template</span>&lt;<span class="kw">typename</span>... Args&gt;
+<span class="kw">void</span> <span class="fn">print</span>(Args... args) { }</code></pre>
+    </article>
+
+    <article class="card" id="exceptions">
+      <h2>Exceptions <span class="badge">try/catch</span></h2>
+      <p><span class="kw">try</span>/<span class="kw">catch</span>/<span class="kw">throw</span> for error handling. Use <span class="kw">catch(...)</span> as a fallback. Standard exception classes derive from <span class="fn">std::exception</span>.</p>
+      <pre><code><span class="kw">try</span> {
+    <span class="kw">if</span> (error)
+        <span class="kw">throw</span> <span class="fn">std::runtime_error</span>(<span class="st">"fail"</span>);
+} <span class="kw">catch</span> (<span class="kw">const</span> <span class="fn">std::exception</span>&amp; e) {
+    <span class="fn">cout</span> &lt;&lt; e.<span class="fn">what</span>();
+} <span class="kw">catch</span> (...) {
+    <span class="cm">// catch any other exception</span>
+}</code></pre>
+    </article>
+
+    <article class="card" id="stl">
+      <h2>STL Containers <span class="badge">vector/map/set</span></h2>
+      <p>Workhorses of the Standard Library: <span class="fn">vector</span> (dynamic array), <span class="fn">map</span> (key-value), <span class="fn">set</span> (sorted unique), plus adaptors.</p>
+      <pre><code><span class="fn">std::vector</span>&lt;<span class="ty">int</span>&gt; v = {<span class="nm">1</span>,<span class="nm">2</span>,<span class="nm">3</span>};
+v.<span class="fn">push_back</span>(<span class="nm">4</span>);                  <span class="cm">// add to end</span>
+v.<span class="fn">pop_back</span>();                    <span class="cm">// remove last</span>
+
+<span class="fn">std::map</span>&lt;<span class="fn">std::string</span>, <span class="ty">int</span>&gt; m;
+m[<span class="st">"key"</span>] = <span class="nm">42</span>;                    <span class="cm">// insert/update</span>
+
+<span class="fn">std::set</span>&lt;<span class="ty">int</span>&gt; s = {<span class="nm">3</span>,<span class="nm">1</span>,<span class="nm">2</span>};       <span class="cm">// sorted, unique</span>
+<span class="fn">std::stack</span>&lt;<span class="ty">int</span>&gt; stk;              <span class="cm">// LIFO</span>
+<span class="fn">std::queue</span>&lt;<span class="ty">int</span>&gt; q;                 <span class="cm">// FIFO</span></code></pre>
+    </article>
+
+    <article class="card" id="move">
+      <h2>Move Semantics <span class="badge">&amp;&amp;</span></h2>
+      <p>Rvalue references (<span class="kw">&amp;&amp;</span>) enable move semantics — transferring resources without copying. <span class="fn">std::move</span> casts an lvalue to an rvalue.</p>
+      <pre><code><span class="fn">std::vector</span>&lt;<span class="ty">int</span>&gt; a = {<span class="nm">1</span>,<span class="nm">2</span>,<span class="nm">3</span>};
+<span class="fn">std::vector</span>&lt;<span class="ty">int</span>&gt; b = <span class="fn">std::move</span>(a);  <span class="cm">// a is now empty</span>
+
+<span class="kw">class</span> <span class="ty">MyType</span> {
+<span class="kw">public</span>:
+    <span class="fn">MyType</span>(<span class="fn">MyType</span>&amp;&amp; other) <span class="kw">noexcept</span>  <span class="cm">// move ctor</span>
+        : ptr(other.ptr) {
+        other.ptr = <span class="kw">nullptr</span>;         <span class="cm">// pilfer resource</span>
+    }
+};</code></pre>
+    </article>
+
+    <article class="card" id="iterators">
+      <h2>Iterators &amp; Algorithms <span class="badge">sort/find</span></h2>
+      <p>Iterators abstract container traversal. &lt;algorithm&gt; provides generic operations: <span class="fn">sort</span>, <span class="fn">find</span>, <span class="fn">for_each</span>, <span class="fn">count_if</span>, etc.</p>
+      <pre><code><span class="fn">std::vector</span>&lt;<span class="ty">int</span>&gt; v = {<span class="nm">4</span>,<span class="nm">1</span>,<span class="nm">3</span>,<span class="nm">2</span>};
+
+<span class="fn">std::sort</span>(v.<span class="fn">begin</span>(), v.<span class="fn">end</span>());       <span class="cm">// 1 2 3 4</span>
+<span class="kw">auto</span> it = <span class="fn">std::find</span>(v.<span class="fn">begin</span>(),
+                    v.<span class="fn">end</span>(), <span class="nm">3</span>);
+
+<span class="fn">std::for_each</span>(v.<span class="fn">begin</span>(), v.<span class="fn">end</span>(),
+    [](<span class="ty">int</span> x) { <span class="fn">cout</span> &lt;&lt; x; });       <span class="cm">// lambda</span>
+
+<span class="ty">int</span> cnt = <span class="fn">std::count_if</span>(v.<span class="fn">begin</span>(),
+    v.<span class="fn">end</span>(), [](<span class="ty">int</span> x) { <span class="kw">return</span> x &gt; <span class="nm">2</span>; });</code></pre>
+    </article>
+
+    <article class="card" id="optional">
+      <h2>optional &amp; variant <span class="badge">C++17</span></h2>
+      <p><span class="fn">std::optional</span> — may or may not contain a value (safe nullable). <span class="fn">std::variant</span> — type-safe union holding one of several types.</p>
+      <pre><code><span class="fn">std::optional</span>&lt;<span class="ty">int</span>&gt; <span class="fn">parseInt</span>(<span class="kw">const</span> <span class="fn">std::string</span>&amp; s) {
+    <span class="kw">if</span> (s.empty()) <span class="kw">return</span> <span class="fn">std::nullopt</span>;
+    <span class="kw">return</span> <span class="fn">std::stoi</span>(s);
+}
+<span class="kw">auto</span> val = <span class="fn">parseInt</span>(<span class="st">"42"</span>);
+<span class="kw">if</span> (val) <span class="fn">cout</span> &lt;&lt; *val;            <span class="cm">// 42</span>
+
+<span class="fn">std::variant</span>&lt;<span class="ty">int</span>, <span class="ty">float</span>, <span class="fn">std::string</span>&gt; v;
+v = <span class="nm">10</span>;                              <span class="cm">// holds int</span>
+<span class="fn">cout</span> &lt;&lt; <span class="fn">std::get</span>&lt;<span class="ty">int</span>&gt;(v);            <span class="cm">// 10</span></code></pre>
+    </article>
+
+    <article class="card" id="bindings">
+      <h2>Structured Bindings <span class="badge">C++17</span></h2>
+      <p>Decompose tuples, pairs, arrays, and structs into named variables in one declaration (C++17).</p>
+      <pre><code><span class="fn">std::map</span>&lt;<span class="fn">std::string</span>, <span class="ty">int</span>&gt; scores;
+<span class="kw">for</span> (<span class="kw">const</span> <span class="kw">auto</span>&amp; [name, score] : scores) {
+    <span class="fn">cout</span> &lt;&lt; name &lt;&lt; <span class="st">": "</span> &lt;&lt; score;
+}
+
+<span class="fn">std::tuple</span>&lt;<span class="ty">int</span>, <span class="ty">double</span>, <span class="fn">std::string</span>&gt; t = {<span class="nm">1</span>, <span class="nm">2.5</span>, <span class="st">"hi"</span>};
+<span class="kw">auto</span> [a, b, c] = t;                 <span class="cm">// a=1, b=2.5, c="hi"</span>
+
+<span class="kw">struct</span> Point { <span class="ty">int</span> x, y; };
+Point p = {<span class="nm">3</span>, <span class="nm">4</span>};
+<span class="kw">auto</span> [x, y] = p;                     <span class="cm">// structured binding</span></code></pre>
+    </article>
+
+  </div>
+</div>
+
+<!-- ─── CATEGORY 7: SYSTEM & BUILD ─── -->
+<div class="category">
+  <h2 class="cat-title"><span class="cat-num">07</span> System &amp; Build <span class="cat-sub">— files, preprocessor, correctness</span></h2>
+  <div class="grid">
+
+    <article class="card" id="fileio">
+      <h2>File I/O <span class="badge">fstream</span></h2>
+      <p>Read/write files with <span class="fn">ifstream</span> (input), <span class="fn">ofstream</span> (output), and <span class="fn">fstream</span> (both). Supports text and binary modes.</p>
+      <pre><code><span class="fn">std::ofstream</span> out(<span class="st">"file.txt"</span>);
+out &lt;&lt; <span class="st">"Hello file!\n"</span>;
+out.<span class="fn">close</span>();
+
+<span class="fn">std::ifstream</span> in(<span class="st">"file.txt"</span>);
+<span class="fn">std::string</span> line;
+<span class="kw">while</span> (<span class="fn">std::getline</span>(in, line))
+    <span class="fn">cout</span> &lt;&lt; line;
+
+<span class="cm">// Binary mode</span>
+<span class="fn">std::fstream</span> f(<span class="st">"data.bin"</span>,
+    <span class="fn">std::ios::binary</span> | <span class="fn">std::ios::in</span> | <span class="fn">std::ios::out</span>);</code></pre>
+    </article>
+
+    <article class="card" id="preprocessor">
+      <h2>Preprocessor <span class="badge">#</span></h2>
+      <p>Directives processed before compilation: <span class="mc">#include</span> (file insertion), <span class="mc">#define</span> (macros), include guards, and conditional compilation.</p>
+      <pre><code><span class="mc">#include</span> &lt;iostream&gt;           <span class="cm">// standard header</span>
+<span class="mc">#include</span> <span class="st">"myheader.h"</span>         <span class="cm">// local header</span>
+
+<span class="mc">#define</span> PI <span class="nm">3.14159</span>             <span class="cm">// macro constant</span>
+<span class="mc">#define</span> MAX(a,b) ((a)&gt;(b)?(a):(b)) <span class="cm">// macro fn</span>
+
+<span class="mc">#ifndef</span> GUARD_H                <span class="cm">// include guard</span>
+<span class="mc">#define</span> GUARD_H
+<span class="cm">// header content</span>
+<span class="mc">#endif</span>
+
+<span class="mc">#pragma once</span>                  <span class="cm">// modern guard</span>
+
+<span class="mc">#ifdef</span> DEBUG
+<span class="fn">cout</span> &lt;&lt; <span class="st">"debug mode"</span>;          <span class="cm">// conditional</span>
+<span class="mc">#endif</span></code></pre>
+    </article>
+
+    <article class="card" id="const">
+      <h2>Const Correctness <span class="badge">const</span></h2>
+      <p><span class="kw">const</span> protects variables, pointers (e.g., <span class="kw">const</span> <span class="ty">int</span>* vs <span class="ty">int</span>* <span class="kw">const</span>), member functions, and parameters from modification.</p>
+      <pre><code><span class="kw">const</span> <span class="ty">int</span> MAX = <span class="nm">100</span>;           <span class="cm">// cannot change</span>
+<span class="kw">const</span> <span class="ty">int</span>* p = &amp;MAX;           <span class="cm">// pointer to const int</span>
+<span class="ty">int</span> <span class="kw">const</span> c = <span class="nm">5</span>;                 <span class="cm">// same as const int</span>
+
+<span class="cm">// const method</span>
+<span class="ty">int</span> <span class="fn">getValue</span>() <span class="kw">const</span> {         <span class="cm">// promises not to modify *this</span>
+    <span class="kw">return</span> val;
+}
+
+<span class="cm">// const &amp; param — prevents copy + modification</span>
+<span class="kw">void</span> <span class="fn">print</span>(<span class="kw">const</span> <span class="fn">std::string</span>&amp; s);</code></pre>
+    </article>
+
+    <article class="card" id="union">
+      <h2>Union &amp; Bit Fields <span class="badge">union</span></h2>
+      <p><span class="kw">union</span> — all members share the same memory (size = largest member). Bit fields allow packing within a struct at the bit level.</p>
+      <pre><code><span class="kw">union</span> Value {
+    <span class="ty">int</span> i;
+    <span class="ty">float</span> f;
+    <span class="ty">char</span> c[<span class="nm">4</span>];
+};
+Value v;
+v.i = <span class="nm">42</span>;                       <span class="cm">// stores as int</span>
+
+<span class="kw">struct</span> Flags {
+    <span class="ty">unsigned</span> <span class="ty">int</span> a : <span class="nm">1</span>;        <span class="cm">// 1 bit</span>
+    <span class="ty">unsigned</span> <span class="ty">int</span> b : <span class="nm">3</span>;        <span class="cm">// 3 bits</span>
+    <span class="ty">unsigned</span> <span class="ty">int</span> c : <span class="nm">4</span>;        <span class="cm">// 4 bits</span>
+};                                 <span class="cm">// total: 8 bits</span></code></pre>
+    </article>
+
+  </div>
+</div>
+
+<footer>
+  <p>C++ Codex — a distilled syntax reference. Built with dedication for the C++ community.</p>
+  <p><a href="https://github.com/Xenoz-GitHub/C-Codex">GitHub</a></p>
+</footer>
+
+</main>
+</body>
+</html>
